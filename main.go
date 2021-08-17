@@ -1,24 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
 
-type person struct {
-	name    string
-	age     int
-	favFood []string
-}
+	"banking"
+)
 
 func main() {
-	p := person{
-		"Jay", 20, []string{"kimchi", "ramen"},
+	account := banking.Account{
+		owner:   "Jay",
+		balance: 100,
 	}
 
-	p2 := person{
-		name:    "Jay",
-		age:     20,
-		favFood: []string{"Kimchi"},
-	}
-
-	fmt.Println(p)
-	fmt.Println(p2)
+	fmt.Println(account)
 }
