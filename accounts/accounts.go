@@ -44,7 +44,7 @@ func (a *Account) Deposit(amount int) {
 }
 
 // Set Method
-func (a *Account) WithDraw(amount int) error {
+func (a *Account) TryWithDraw(amount int) error {
 	if a.balance < amount {
 		return errNoMoney
 	}
@@ -53,8 +53,8 @@ func (a *Account) WithDraw(amount int) error {
 }
 
 // 한번 해봄
-func TryWithDraw(a *Account, amount int) {
-	err := a.WithDraw(amount)
+func WithDraw(a *Account, amount int) {
+	err := a.TryWithDraw(amount)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -65,7 +65,8 @@ func (a *Account) ChangeOwner(newOwner string) {
 	a.owner = newOwner
 }
 
-/* package main
+/*
+package main
 
 import (
 	"fmt"
@@ -88,10 +89,12 @@ func main() {
 	// 	log.Fatalln(err)
 	// }
 
-	// accounts.TryWithDraw(account, 10)
-	// accounts.TryWithDraw(account, 10)
+	accounts.WithDraw(account, 10)
+	accounts.WithDraw(account, 10)
+
 	account.ChangeOwner("New User")
 	fmt.Println(account.Balance(), account.Owner())
 	fmt.Println(account)
 }
+
 */

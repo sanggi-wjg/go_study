@@ -1,29 +1,40 @@
 package main
 
 import (
+	"errors"
 	"fmt"
-	"go_study/accounts"
+	"net/http"
 )
 
 func main() {
-	account := accounts.NewAccount("Jay")
-	account.Deposit(20)
+	urls := []string{
+		"https://nomadcoders.co/go-for-beginners/lectures/1519",
+		"https://naver.com",
+		"https://www.google.com",
+		"https://fmkorea.com",
+	}
 
-	// fmt.Println(account)
-	// fmt.Println(account.Balance())
-	// err := account.WithDraw(10)
-	// if err != nil {
-	// 	log.Fatalln(err)
-	// }
+	results := map[string]string{}
 
-	// err = account.WithDraw(10)
-	// if err != nil {
-	// 	log.Fatalln(err)
-	// }
+	for _, url := range urls {
+		err := hitURL(url)
+		if err == nil {
+			results[url] = "Success"
+		} else {
+			results[url] = "Failed"
+		}
+	}
 
-	// accounts.TryWithDraw(account, 10)
-	// accounts.TryWithDraw(account, 10)
-	account.ChangeOwner("New User")
-	fmt.Println(account.Balance(), account.Owner())
-	fmt.Println(account)
+	fmt.Println(results)
+}
+
+func hitURL(url string) error {
+	fmt.Println("Check URL:", url)
+	response, err := http.Get(url)
+
+	if err != nil || response.StatusCode >= 400 {
+		return errors.New("request failed")
+	}
+
+	return nil
 }
