@@ -1,6 +1,12 @@
 # go_study
 Study Go Go Go
 
+[환경]
+```
+Windosw 10
+go version go1.16.7
+```
+
 ### Go Hompage
 https://go.dev/
 

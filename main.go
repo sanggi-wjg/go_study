@@ -2,26 +2,18 @@ package main
 
 import (
 	"fmt"
-	"time"
+	"net/http"
 )
 
+var baseURL string = "https://kr.indeed.com/jobs?q=django"
+
 func main() {
-	channel := make(chan bool)
-	people := [2]string{"First", "Second"}
-
-	for _, person := range people {
-		go isSomething(person, channel)
-	}
-
-	fmt.Println(<-channel)
-	fmt.Println(<-channel)
+	pages := getPages()
+	fmt.Println(pages)
 }
 
-func isSomething(person string, c chan bool) {
-	time.Sleep(time.Second * 3)
-	if person == "First" {
-		c <- true
-	} else {
-		c <- false
-	}
+func getPages() int {
+	response, err := http.Get(baseURL)
+
+	return 0
 }
