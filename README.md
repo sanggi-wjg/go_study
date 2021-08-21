@@ -5,6 +5,10 @@ Study Go Go Go
 ```
 Windosw 10
 go version go1.16.7
+
+set GOROOT=C:\Go
+set GOPATH=C:\Go_project
+set GOBIN=C:\Go_project\bin
 ```
 
 ### Go Hompage
