@@ -1,9 +1,10 @@
 package main
 
 import (
-	"fmt"
+	"encoding/csv"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/PuerkitoBio/goquery"
@@ -35,14 +36,37 @@ func (r *ScrappedJobResult) AddSalary(salary string) {
 }
 
 var baseURL string = "https://kr.indeed.com/jobs?q=python&limit=50"
-var jobURL string = "https://kr.indeed.com/%EC%B1%84%EC%9A%A9%EB%B3%B4%EA%B8%B0?jk="
 
 func main() {
-	// totalPages := getTotalPages()
+	totalPages := getTotalPages()
 	// fmt.Println("Total Pages:", totalPages)
+	jobs := []ScrappedJobResult{}
 
-	for i := 0; i < 1; i++ {
-		getPage(i)
+	for i := 0; i < totalPages; i++ {
+		scrappedJobs := getPage(i)
+		jobs = append(jobs, scrappedJobs...)
+	}
+
+	// fmt.Println(jobs)
+	resultToCSV(jobs)
+}
+
+func resultToCSV(jobs []ScrappedJobResult) {
+	file, err := os.Create("jobs.csv")
+	checkErr(err)
+
+	output := csv.NewWriter(file)
+	defer output.Flush()
+	defer file.Close()
+
+	headers := []string{"URL", "ID", "Title", "Name", "Location", "Salary"}
+	err = output.Write(headers)
+	checkErr(err)
+
+	for _, job := range jobs {
+		slice := []string{job.pageURL, job.id, job.title, job.name, job.salary}
+		err = output.Write(slice)
+		checkErr(err)
 	}
 }
 
@@ -66,21 +90,20 @@ func requestPage(requestURL string) *http.Response {
 	return res
 }
 
-func getPage(page int) {
+func getPage(page int) []ScrappedJobResult {
+	jobs := []ScrappedJobResult{}
 	pageURL := baseURL + "&start=" + strconv.Itoa(page*50)
-	fmt.Println(pageURL)
-
 	res := requestPage(pageURL)
+
 	defer res.Body.Close() // io 여서 close() 해줘야 함
 	doc, _ := goquery.NewDocumentFromReader(res.Body)
 
 	doc.Find("#mosaic-provider-jobcards > a").Each(func(i int, card *goquery.Selection) {
-		// result := NewScrappedJobResult(jobURL+id, id, title, companyName, location)
-		// if salaryExist {
-		// 	result.AddSalary(salary)
-		// }
 		job := scrapJob(card)
+		jobs = append(jobs, *job)
 	})
+
+	return jobs
 }
 
 func scrapJob(card *goquery.Selection) *ScrappedJobResult {
@@ -89,8 +112,10 @@ func scrapJob(card *goquery.Selection) *ScrappedJobResult {
 	companyName := card.Find(".company_location > pre > span").Text()
 	location := card.Find(".company_location > pre > div").Text()
 	salary, _ := card.Find(".salary-snippet-container > span").Attr("aria-label")
+	jobURL := "https://kr.indeed.com/%EC%B1%84%EC%9A%A9%EB%B3%B4%EA%B8%B0?jk=" + id
 	// fmt.Println(id, title, companyName, location, salary)
-	return NewScrappedJobResult(jobURL+id, id, title, companyName, location, salary)
+
+	return NewScrappedJobResult(jobURL, id, title, companyName, location, salary)
 }
 
 func getTotalPages() int {

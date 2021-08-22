@@ -65,7 +65,7 @@ func (a *Account) ChangeOwner(newOwner string) {
 	a.owner = newOwner
 }
 
-/*
+
 package main
 
 import (
@@ -97,4 +97,4 @@ func main() {
 	fmt.Println(account)
 }
 
-*/
+
