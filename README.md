@@ -26,3 +26,6 @@ http://golang.site/
 ### Go Web Frameworks
 https://github.com/mingrammer/go-web-framework-stars
 https://github.com/gin-gonic/gin
+
+### Go EXCEL Package
+https://github.com/qax-os/excelize

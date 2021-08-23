@@ -66,23 +66,23 @@ func canSwitchAge(age int) bool {
 	return true
 }
 
-func main() {
-	// name := "Jay"
-	// fmt.Println("Hello World " + name)
-	// fmt.Println(multiply(10, 8))
+// func main() {
+// 	// name := "Jay"
+// 	// fmt.Println("Hello World " + name)
+// 	// fmt.Println(multiply(10, 8))
 
-	// fmt.Println(lenAndUpper(name))
-	// length, _ := lenAndUpper(name)
-	// fmt.Println(length)
+// 	// fmt.Println(lenAndUpper(name))
+// 	// length, _ := lenAndUpper(name)
+// 	// fmt.Println(length)
 
-	// repeat("1", "2", "3", "4")
+// 	// repeat("1", "2", "3", "4")
 
-	// name = "Hahahaha"
-	// length, uppercase := lenAndUpper_3(name)
-	// fmt.Println(length, uppercase)
+// 	// name = "Hahahaha"
+// 	// length, uppercase := lenAndUpper_3(name)
+// 	// fmt.Println(length, uppercase)
 
-	// addNumbers(1, 2, 3, 4, 5)
+// 	// addNumbers(1, 2, 3, 4, 5)
 
-	// fmt.Println(canIfAge(18))
-	// fmt.Println(canSwitchAge(20))
-}
+// 	// fmt.Println(canIfAge(18))
+// 	// fmt.Println(canSwitchAge(20))
+// }

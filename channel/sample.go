@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 )
 
@@ -25,29 +24,29 @@ func NewHitResult(url string, status_code int, status string) *HitResult {
 // 	r.status_code = status_code
 // }
 
-func main() {
-	urls := []string{
-		"https://nomadcoders.co/",
-		"https://naver.com",
-		"https://www.google.com",
-		"https://fmkorea.com",
-		"https://www.reddit.com",
-	}
-	results := make([]HitResult, len(urls))
-	channel := make(chan HitResult)
+// func main() {
+// 	urls := []string{
+// 		"https://nomadcoders.co/",
+// 		"https://naver.com",
+// 		"https://www.google.com",
+// 		"https://fmkorea.com",
+// 		"https://www.reddit.com",
+// 	}
+// 	results := make([]HitResult, len(urls))
+// 	channel := make(chan HitResult)
 
-	for _, url := range urls {
-		go hitURL(url, channel)
-	}
+// 	for _, url := range urls {
+// 		go hitURL(url, channel)
+// 	}
 
-	for i := 0; i < len(urls); i++ {
-		results[i] = <-channel
-	}
+// 	for i := 0; i < len(urls); i++ {
+// 		results[i] = <-channel
+// 	}
 
-	for _, r := range results {
-		fmt.Println(r)
-	}
-}
+// 	for _, r := range results {
+// 		fmt.Println(r)
+// 	}
+// }
 
 func hitURL(url string, c chan HitResult) {
 	response, err := http.Get(url)

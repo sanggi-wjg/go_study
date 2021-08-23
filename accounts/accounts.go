@@ -65,36 +65,31 @@ func (a *Account) ChangeOwner(newOwner string) {
 	a.owner = newOwner
 }
 
+// import (
+// 	"fmt"
+// 	"go_study/accounts"
+// )
 
-package main
+// func main() {
+// 	account := accounts.NewAccount("Jay")
+// 	account.Deposit(20)
 
-import (
-	"fmt"
-	"go_study/accounts"
-)
+// 	// fmt.Println(account)
+// 	// fmt.Println(account.Balance())
+// 	// err := account.WithDraw(10)
+// 	// if err != nil {
+// 	// 	log.Fatalln(err)
+// 	// }
 
-func main() {
-	account := accounts.NewAccount("Jay")
-	account.Deposit(20)
+// 	// err = account.WithDraw(10)
+// 	// if err != nil {
+// 	// 	log.Fatalln(err)
+// 	// }
 
-	// fmt.Println(account)
-	// fmt.Println(account.Balance())
-	// err := account.WithDraw(10)
-	// if err != nil {
-	// 	log.Fatalln(err)
-	// }
+// 	accounts.WithDraw(account, 10)
+// 	accounts.WithDraw(account, 10)
 
-	// err = account.WithDraw(10)
-	// if err != nil {
-	// 	log.Fatalln(err)
-	// }
-
-	accounts.WithDraw(account, 10)
-	accounts.WithDraw(account, 10)
-
-	account.ChangeOwner("New User")
-	fmt.Println(account.Balance(), account.Owner())
-	fmt.Println(account)
-}
-
-
+// 	account.ChangeOwner("New User")
+// 	fmt.Println(account.Balance(), account.Owner())
+// 	fmt.Println(account)
+// }

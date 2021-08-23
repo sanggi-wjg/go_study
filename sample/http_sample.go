@@ -6,27 +6,27 @@ import (
 	"net/http"
 )
 
-func main() {
-	urls := []string{
-		"https://nomadcoders.co/go-for-beginners/lectures/1519",
-		"https://naver.com",
-		"https://www.google.com",
-		"https://fmkorea.com",
-	}
+// func main() {
+// 	urls := []string{
+// 		"https://nomadcoders.co/go-for-beginners/lectures/1519",
+// 		"https://naver.com",
+// 		"https://www.google.com",
+// 		"https://fmkorea.com",
+// 	}
 
-	results := map[string]string{}
+// 	results := map[string]string{}
 
-	for _, url := range urls {
-		err := hitURL(url)
-		if err == nil {
-			results[url] = "Success"
-		} else {
-			results[url] = "Failed"
-		}
-	}
+// 	for _, url := range urls {
+// 		err := hitURL(url)
+// 		if err == nil {
+// 			results[url] = "Success"
+// 		} else {
+// 			results[url] = "Failed"
+// 		}
+// 	}
 
-	fmt.Println(results)
-}
+// 	fmt.Println(results)
+// }
 
 func hitURL(url string) error {
 	fmt.Println("Check URL:", url)
