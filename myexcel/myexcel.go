@@ -1,12 +1,15 @@
 package myexcel
 
 import (
-	"log"
+	"errors"
 
 	"github.com/xuri/excelize"
 )
 
-func CreateExcel() {
+var errExcelWrite = errors.New("can't set value on excel sheet")
+var errExcelSave = errors.New("can't save as excel file")
+
+func CreateExcel() error {
 	file := excelize.NewFile()
 
 	sheetIndex := file.NewSheet("Sheet1")
@@ -14,11 +17,11 @@ func CreateExcel() {
 
 	err := file.SetCellValue("Sheet1", "B2", "Hello World")
 	if err != nil {
-		log.Fatalln(err)
+		return errExcelWrite
 	}
 
 	err = file.SaveAs("Sample.xlsx")
 	if err != nil {
-		log.Fatalln(err)
+		return errExcelSave
 	}
 }

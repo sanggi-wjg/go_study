@@ -19,6 +19,14 @@ func HelloName(c *gin.Context) {
 	c.String(http.StatusOK, "Hello %s", name)
 }
 
+func HelloNameAction(c *gin.Context) {
+	name := c.Param("name")
+	action := c.Param("action")
+	// action:= c.DefaultQuery("action", "send")
+
+	c.String(http.StatusOK, "Hello %s Action %s", name, action)
+}
+
 func CreateExcel(c *gin.Context) {
 	myexcel.CreateExcel()
 }
