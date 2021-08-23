@@ -32,3 +32,13 @@ https://gorm.io/
 
 ### Go EXCEL Package
 https://github.com/qax-os/excelize
+
+
+```shell_script
+go get -u github.com/gin-gonic/gin
+go get github.com/xuri/excelize
+go get github.com/sirupsen/logrus
+
+# Linux 에서만
+go get github.com/fvbock/endless 
+```

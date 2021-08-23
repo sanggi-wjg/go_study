@@ -24,4 +24,6 @@ func CreateExcel() error {
 	if err != nil {
 		return errExcelSave
 	}
+
+	return nil
 }
