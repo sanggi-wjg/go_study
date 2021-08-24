@@ -1,9 +1,9 @@
 package main
 
-import (
-	"go_study/server"
-)
+import "go_study/myexcel"
 
 func main() {
-	server.ServerStart()
+	// server.ServerStart()
+
+	myexcel.CreateExcelSample()
 }
