@@ -1,0 +1,86 @@
+package myexcel
+
+import (
+	"errors"
+	"fmt"
+	"strconv"
+	"time"
+
+	"github.com/xuri/excelize"
+)
+
+var errExcelWrite = errors.New("can't set value on excel sheet")
+var errExcelSave = errors.New("can't save as excel file")
+
+const SHEET_NUMBER = 10
+const SAMPLE_NUMBER = 50000
+
+func CreateExcelSample() error {
+	start_time := time.Now()
+	file := excelize.NewFile()
+
+	for i := 1; i <= SHEET_NUMBER; i++ {
+		CreateSheet(file, "Sheet"+strconv.Itoa(i))
+	}
+
+	sampleDatas := sampleData()
+	sheetMap := file.GetSheetMap()
+
+	for _, sheetName := range sheetMap {
+		channel := make(chan error)
+		channelResult := make([]error, SAMPLE_NUMBER)
+
+		for index, sample := range sampleDatas {
+			go GoWriteCellString(file, sheetName, index, sample, channel)
+		}
+
+		for i := 0; i < SAMPLE_NUMBER; i++ {
+			channelResult = append(channelResult, <-channel)
+		}
+	}
+
+	if err := SaveExcelFile(file, "Sample.xlsx"); err != nil {
+		return err
+	}
+
+	elapsed := time.Since(start_time)
+	fmt.Printf("it takes time : %d", elapsed)
+	return nil
+}
+
+func CreateSheet(f *excelize.File, sheetName string) int {
+	defer fmt.Println("create sheet " + sheetName)
+	index := f.NewSheet(sheetName)
+	return index
+}
+
+func GoWriteCellString(f *excelize.File, sheetName string, col int, value string, c chan error) {
+	// fmt.Println(sheetName, col)
+
+	if f.SetCellValue(sheetName, "B"+strconv.Itoa(col+1), value) != nil {
+		c <- errExcelWrite
+	}
+	if f.SetCellValue(sheetName, "C"+strconv.Itoa(col+1), value) != nil {
+		c <- errExcelWrite
+	}
+	if f.SetCellValue(sheetName, "D"+strconv.Itoa(col+1), value) != nil {
+		c <- errExcelWrite
+	}
+
+	c <- nil
+}
+
+func SaveExcelFile(f *excelize.File, filename string) error {
+	if err := f.SaveAs("Book1.xlsx"); err != nil {
+		return errExcelSave
+	}
+	return nil
+}
+
+func sampleData() []string {
+	s := make([]string, SAMPLE_NUMBER)
+	for i := 0; i < SAMPLE_NUMBER; i++ {
+		s[i] = strconv.Itoa(i + 1)
+	}
+	return s
+}
