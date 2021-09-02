@@ -17,7 +17,7 @@ func registerRoutes(router *gin.Engine, config *Config) {
 	// If no other routers match /user/john, it will redirect to /user/john/
 	router.GET("/user/:name/*action", home.HelloNameAction)
 
-	// authorized := router.Group("/")
+	// authorized := routers.Group("/")
 	// authorized.Use(AuthRequired()){
 	// }
 }
