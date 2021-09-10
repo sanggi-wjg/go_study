@@ -54,6 +54,7 @@ func (obs *OBSInfo) uploadToOBS(filePaths []string) []UploadResult {
 
 	for i := 0; i < len(filePaths); i++ {
 		results[i] = <-channel
+		fmt.Println(results[i])
 	}
 
 	return results
@@ -81,6 +82,7 @@ func tryUpload(obs *OBSInfo, path string, c chan UploadResult) {
 	if resp.StatusCode != 201 {
 		c <- UploadResult{Success: false, Filepath: path, Status: resp.Status, StatusCode: resp.StatusCode}
 	}
+	os.Remove(path)
 	c <- UploadResult{Success: true, Filepath: path, Status: resp.Status, StatusCode: resp.StatusCode}
 }
 
@@ -129,9 +131,9 @@ func walkFiles() []string {
 }
 
 const (
-	LogRoot string = "go_study/logs/"
-	//TargetModTime string = "168h"
-	TargetModTime string = "1h"
+	LogRoot       string = "go_study/logs/"
+	TargetModTime string = "168h"
+	//TargetModTime string = "1h"
 )
 
 func main() {
@@ -143,9 +145,5 @@ func main() {
 	obsInfo := parseJson(respBody)
 
 	filePaths := walkFiles()
-	results := obsInfo.uploadToOBS(filePaths)
-
-	for _, res := range results {
-		fmt.Println(res)
-	}
+	obsInfo.uploadToOBS(filePaths)
 }
