@@ -1,4 +1,4 @@
-package mydict
+package sample
 
 import "errors"
 
