@@ -1,25 +1,26 @@
 package main
 
 import (
+	"fmt"
 	"math/rand"
 	"strconv"
 	"time"
 )
 
-// func main() {
-// 	channel := make(chan string)
-// 	people := [5]string{"First", "Second", "Third", "Fourth", "Fifth"}
+func main() {
+	channel := make(chan string)
+	people := [5]string{"First", "Second", "Third", "Fourth", "Fifth"}
 
-// 	for _, person := range people {
-// 		go isSomething(person, channel)
-// 	}
+	for _, person := range people {
+		go isSomething(person, channel)
+	}
 
-// 	for i := 0; i < len(people); i++ {
-// 		fmt.Println(<-channel)
-// 	}
+	for i := 0; i < len(people); i++ {
+		fmt.Println(<-channel)
+	}
 
-// 	// fmt.Println("Done")
-// }
+	// fmt.Println("Done")
+}
 
 func isSomething(person string, c chan string) {
 	random := rand.Intn(5)

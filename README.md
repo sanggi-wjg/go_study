@@ -37,6 +37,9 @@ https://github.com/qax-os/excelize
 ### Go Log Package
 https://github.com/sirupsen/logrus
 
+### Go prometheus
+https://prometheus.io/docs/guides/go-application/
+https://github.com/prometheus/client_golang
 
 ```shell_script
 go get -u github.com/gin-gonic/gin
